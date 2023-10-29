@@ -91,16 +91,16 @@
 
             </RelativeLayout>
 
-            <TextView android:id="@+id/lupa_kata_sandi_"
-                android:textStyle="bold"
-                android:textColor="@color/lupa_kata_sandi__color"
+
+            <TextView
+                android:id="@+id/lupa_kata_sandi_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="233dp"
                 android:layout_marginTop="397dp"
-                android:layout_width="72.7dp"
-                android:layout_height="12.7dp"
-                android:text="@string/lupa_kata_sandi__string"
-                />
-
+                android:text="Daftar"
+                android:textColor="@color/lupa_kata_sandi__color"
+                android:textStyle="bold" />
 
             <RelativeLayout android:id="@+id/sign_in"
                 android:layout_marginTop="415dp"
