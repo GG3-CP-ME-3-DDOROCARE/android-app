@@ -17,4 +17,17 @@
     <color name="red">#C82828</color>
     <color name="gray">#788282</color>
     <color name="pink">#D21EBE</color>
+    <color name="_bg__register_page_color">#FFFFFF</color>
+    <color name="_bg__nama_pengguna_atau_email_ek1_color">#000000</color>
+    <color name="rectangle_6_color">#ffffff</color>
+    <color name="ddrocare_gmail_com_color">#898989</color>
+    <color name="rectangle_8_color">#FE7503</color>
+    <color name="rectangle_12_color">#CBFEAC</color>
+    <color name="_bg__login_page_color">#FFFFFF</color>
+<!--    <color name="_bg__nama_pengguna_atau_email_ek1_color">#000000</color>-->
+<!--    <color name="rectangle_6_color">#ffffff</color>-->
+    <color name="email_color">#898989</color>
+    <color name="lupa_kata_sandi__color">#002C77</color>
+<!--    <color name="rectangle_8_color">#FE7503</color>-->
+
 </resources>

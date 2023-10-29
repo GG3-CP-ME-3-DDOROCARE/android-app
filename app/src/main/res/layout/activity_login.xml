@@ -1,0 +1,154 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content" >
+    <ScrollView android:id="@+id/loginActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout android:id="@+id/content_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <View   android:id="@+id/_bg__login_page"
+                android:background="@drawable/_bg__login_page_shape"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_width="360dp"
+                android:layout_height="640dp" />
+
+            <ImageView android:id="@+id/logo_"
+                android:src="@drawable/logo_"
+                android:contentDescription="logo_"
+                android:layout_marginStart="108dp"
+                android:layout_marginTop="121dp"
+                android:layout_width="144dp"
+                android:layout_height="110dp" />
+
+
+            <RelativeLayout android:id="@+id/nama_pengguna_atau_email"
+                android:layout_marginTop="315dp"
+                android:layout_marginStart="59dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <View   android:id="@+id/_bg__nama_pengguna_atau_email_ek1"
+                    android:background="@drawable/_bg__nama_pengguna_atau_email_ek1_shape"
+                    android:layout_marginStart="-59dp"
+                    android:layout_marginTop="-315dp"
+                    android:layout_width="238dp"
+                    android:layout_height="23dp" />
+
+                <View   android:id="@+id/rectangle_6"
+                    android:background="@drawable/rectangle_6_shape"
+                    android:layout_marginStart="-1dp"
+                    android:layout_marginTop="-1dp"
+                    android:layout_width="238dp"
+                    android:layout_height="23dp" />
+
+                <TextView android:id="@+id/email"
+                    android:textSize="11sp"
+                    android:textColor="@color/email_color"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="42.1dp"
+                    android:layout_height="20.1dp"
+                    android:text="@string/email_string"
+                    />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout android:id="@+id/kata_sandi"
+                android:layout_marginTop="359dp"
+                android:layout_marginStart="59dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <View   android:id="@+id/_bg__kata_sandi_ek1"
+                    android:background="@drawable/_bg__kata_sandi_ek1_shape"
+                    android:layout_marginStart="-59dp"
+                    android:layout_marginTop="-359dp"
+                    android:layout_width="238dp"
+                    android:layout_height="23dp" />
+
+                <View   android:id="@+id/rectangle_7"
+                    android:background="@drawable/rectangle_7_shape"
+                    android:layout_marginStart="-1dp"
+                    android:layout_marginTop="-1dp"
+                    android:layout_width="238dp"
+                    android:layout_height="23dp" />
+
+                <TextView android:id="@+id/kata_sandi_ek2"
+                    android:textSize="11sp"
+                    android:textColor="@color/email_color"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="72.1dp"
+                    android:layout_height="20.1dp"
+                    android:text="@string/kata_sandi_ek2_string"
+                    />
+
+            </RelativeLayout>
+
+            <TextView android:id="@+id/lupa_kata_sandi_"
+                android:textStyle="bold"
+                android:textColor="@color/lupa_kata_sandi__color"
+                android:layout_marginLeft="233dp"
+                android:layout_marginTop="397dp"
+                android:layout_width="72.7dp"
+                android:layout_height="12.7dp"
+                android:text="@string/lupa_kata_sandi__string"
+                />
+
+
+            <RelativeLayout android:id="@+id/sign_in"
+                android:layout_marginTop="415dp"
+                android:layout_marginStart="219dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <View   android:id="@+id/_bg__sign_in_ek1"
+                    android:background="@drawable/_bg__sign_in_ek1_shape"
+                    android:layout_marginStart="-219dp"
+                    android:layout_marginTop="-415dp"
+                    android:layout_width="78dp"
+                    android:layout_height="23dp" />
+
+                <View   android:id="@+id/rectangle_8"
+                    android:background="@drawable/rectangle_8_shape"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_width="78dp"
+                    android:layout_height="23dp" />
+
+                <TextView android:id="@+id/sign_in_ek2"
+                    android:layout_gravity="center_horizontal|center"
+                    android:gravity="center"
+                    android:textSize="11sp"
+                    android:textColor="@color/_bg__login_page_color"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="43.1dp"
+                    android:layout_height="20.1dp"
+                    android:text="@string/sign_in_ek2_string"
+                    />
+
+            </RelativeLayout>
+
+            <TextView android:id="@+id/login"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/_bg__nama_pengguna_atau_email_ek1_color"
+                android:layout_marginLeft="154dp"
+                android:layout_marginTop="262dp"
+                android:layout_width="80dp"
+                android:layout_height="27dp"
+                android:text="@string/login_string"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+</HorizontalScrollView>

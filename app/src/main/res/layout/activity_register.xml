@@ -1,0 +1,180 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content" >
+    <!--
+    /*
+     *	This content is generated from the API File Info.
+     *	(Alt+Shift+Ctrl+I).
+     *
+     *	@desc
+     *	@file 		register_page
+     *	@date 		Saturday 28th of October 2023 11:52:17 PM
+     *	@title 		Page 1
+     *	@author
+     *	@keywords
+     *	@generator 	Export Kit v1.3.figma
+     *
+     */
+    -->
+    <ScrollView android:id="@+id/registerActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout android:id="@+id/content_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <View   android:id="@+id/_bg__register_page"
+                android:background="@drawable/_bg__register_page_shape"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_width="360dp"
+                android:layout_height="640dp" />
+
+            <ImageView android:id="@+id/logo_"
+                android:src="@drawable/logo_"
+                android:contentDescription="logo_"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="118dp"
+                android:layout_width="144dp"
+                android:layout_height="110dp" />
+
+
+            <RelativeLayout android:id="@+id/nama_pengguna_atau_email"
+                android:layout_marginTop="314dp"
+                android:layout_marginStart="61dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <View   android:id="@+id/_bg__nama_pengguna_atau_email_ek1"
+                    android:background="@drawable/_bg__nama_pengguna_atau_email_ek1_shape"
+                    android:layout_marginStart="-61dp"
+                    android:layout_marginTop="-314dp"
+                    android:layout_width="238dp"
+                    android:layout_height="23dp" />
+
+                <View   android:id="@+id/rectangle_6"
+                    android:background="@drawable/rectangle_6_shape"
+                    android:layout_marginStart="-1dp"
+                    android:layout_marginTop="-1dp"
+                    android:layout_width="238dp"
+                    android:layout_height="23dp" />
+
+                <TextView
+                    android:id="@+id/ddrocare_gmail_com"
+                    android:layout_width="134.1dp"
+                    android:layout_height="20.1dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/ddrocare_gmail_com_string"
+                    android:textColor="@color/ddrocare_gmail_com_color"
+                    android:textSize="11sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout android:id="@+id/kata_sandi"
+                android:layout_marginTop="357dp"
+                android:layout_marginStart="61dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <View   android:id="@+id/_bg__kata_sandi_ek1"
+                    android:background="@drawable/_bg__kata_sandi_ek1_shape"
+                    android:layout_marginStart="-61dp"
+                    android:layout_marginTop="-357dp"
+                    android:layout_width="238dp"
+                    android:layout_height="23dp" />
+
+                <View   android:id="@+id/rectangle_7"
+                    android:background="@drawable/rectangle_7_shape"
+                    android:layout_marginStart="-1dp"
+                    android:layout_marginTop="-1dp"
+                    android:layout_width="238dp"
+                    android:layout_height="23dp" />
+
+                <TextView android:id="@+id/________________________"
+                    android:textSize="11sp"
+                    android:textColor="@color/ddrocare_gmail_com_color"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="134.1dp"
+                    android:layout_height="15.1dp"
+                    android:text="@string/_________________________string"
+                    />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout android:id="@+id/sign_in"
+                android:layout_marginTop="403dp"
+                android:layout_marginStart="219dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <View   android:id="@+id/_bg__sign_in_ek1"
+                    android:background="@drawable/_bg__sign_in_ek1_shape"
+                    android:layout_marginStart="-219dp"
+                    android:layout_marginTop="-403dp"
+                    android:layout_width="78dp"
+                    android:layout_height="23dp" />
+
+                <View   android:id="@+id/rectangle_8"
+                    android:background="@drawable/rectangle_8_shape"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_width="78dp"
+                    android:layout_height="23dp" />
+
+                <TextView android:id="@+id/register"
+                    android:layout_gravity="center_horizontal|center"
+                    android:gravity="center"
+                    android:textSize="11sp"
+                    android:textColor="@color/_bg__register_page_color"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="51.1dp"
+                    android:layout_height="20.1dp"
+                    android:text="@string/register_string"
+                    />
+
+            </RelativeLayout>
+
+            <TextView android:id="@+id/registrasi"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/_bg__nama_pengguna_atau_email_ek1_color"
+                android:layout_marginLeft="138dp"
+                android:layout_marginTop="261dp"
+                android:layout_width="122dp"
+                android:layout_height="27dp"
+                android:text="@string/registrasi_string"
+                />
+
+            <View   android:id="@+id/rectangle_12"
+                android:background="@drawable/rectangle_12_shape"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="384dp"
+                android:layout_width="21dp"
+                android:layout_height="3dp" />
+
+            <View   android:id="@+id/rectangle_13"
+                android:background="@drawable/rectangle_13_shape"
+                android:layout_marginStart="89dp"
+                android:layout_marginTop="384dp"
+                android:layout_width="22dp"
+                android:layout_height="3dp" />
+
+            <View   android:id="@+id/rectangle_14"
+                android:background="@drawable/rectangle_14_shape"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="384dp"
+                android:layout_width="21dp"
+                android:layout_height="3dp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+</HorizontalScrollView>
