@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.provider.AlarmClock;
 import android.util.Log;
 
-public class splash_screen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

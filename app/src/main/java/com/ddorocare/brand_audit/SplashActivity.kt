@@ -7,10 +7,13 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 
+
 class SplashActivity : AppCompatActivity() {
+//    private lateinit var binding: ActivitySplashScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
+//        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_splash)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
