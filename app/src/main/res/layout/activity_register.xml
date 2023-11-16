@@ -1,180 +1,194 @@
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="wrap_content" >
-    <!--
-    /*
-     *	This content is generated from the API File Info.
-     *	(Alt+Shift+Ctrl+I).
-     *
-     *	@desc
-     *	@file 		register_page
-     *	@date 		Saturday 28th of October 2023 11:52:17 PM
-     *	@title 		Page 1
-     *	@author
-     *	@keywords
-     *	@generator 	Export Kit v1.3.figma
-     *
-     */
-    -->
-    <ScrollView android:id="@+id/registerActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" >
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/beige"
+    android:padding="16dp">
 
-        <RelativeLayout android:id="@+id/content_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+    <ImageView
+        android:id="@+id/logo_wirajasa_in_register"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@id/cv_register_in_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-            <View   android:id="@+id/_bg__register_page"
-                android:background="@drawable/_bg__register_page_shape"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_width="360dp"
-                android:layout_height="640dp" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_register_in_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:cardElevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo_wirajasa_in_register"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:strokeColor="@color/white">
 
-            <ImageView android:id="@+id/logo_"
-                android:src="@drawable/logo_"
-                android:contentDescription="logo_"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="118dp"
-                android:layout_width="144dp"
-                android:layout_height="110dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
 
-
-            <RelativeLayout android:id="@+id/nama_pengguna_atau_email"
-                android:layout_marginTop="314dp"
-                android:layout_marginStart="61dp"
+            <TextView
+                android:id="@+id/tv_register_in_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                >
+                android:layout_marginTop="16dp"
 
-                <View   android:id="@+id/_bg__nama_pengguna_atau_email_ek1"
-                    android:background="@drawable/_bg__nama_pengguna_atau_email_ek1_shape"
-                    android:layout_marginStart="-61dp"
-                    android:layout_marginTop="-314dp"
-                    android:layout_width="238dp"
-                    android:layout_height="23dp" />
-
-                <View   android:id="@+id/rectangle_6"
-                    android:background="@drawable/rectangle_6_shape"
-                    android:layout_marginStart="-1dp"
-                    android:layout_marginTop="-1dp"
-                    android:layout_width="238dp"
-                    android:layout_height="23dp" />
-
-                <TextView
-                    android:id="@+id/ddrocare_gmail_com"
-                    android:layout_width="134.1dp"
-                    android:layout_height="20.1dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/ddrocare_gmail_com_string"
-                    android:textColor="@color/ddrocare_gmail_com_color"
-                    android:textSize="11sp" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout android:id="@+id/kata_sandi"
-                android:layout_marginTop="357dp"
-                android:layout_marginStart="61dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
-
-                <View   android:id="@+id/_bg__kata_sandi_ek1"
-                    android:background="@drawable/_bg__kata_sandi_ek1_shape"
-                    android:layout_marginStart="-61dp"
-                    android:layout_marginTop="-357dp"
-                    android:layout_width="238dp"
-                    android:layout_height="23dp" />
-
-                <View   android:id="@+id/rectangle_7"
-                    android:background="@drawable/rectangle_7_shape"
-                    android:layout_marginStart="-1dp"
-                    android:layout_marginTop="-1dp"
-                    android:layout_width="238dp"
-                    android:layout_height="23dp" />
-
-                <TextView android:id="@+id/________________________"
-                    android:textSize="11sp"
-                    android:textColor="@color/ddrocare_gmail_com_color"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="134.1dp"
-                    android:layout_height="15.1dp"
-                    android:text="@string/_________________________string"
-                    />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout android:id="@+id/sign_in"
-                android:layout_marginTop="403dp"
-                android:layout_marginStart="219dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
-
-                <View   android:id="@+id/_bg__sign_in_ek1"
-                    android:background="@drawable/_bg__sign_in_ek1_shape"
-                    android:layout_marginStart="-219dp"
-                    android:layout_marginTop="-403dp"
-                    android:layout_width="78dp"
-                    android:layout_height="23dp" />
-
-                <View   android:id="@+id/rectangle_8"
-                    android:background="@drawable/rectangle_8_shape"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_width="78dp"
-                    android:layout_height="23dp" />
-
-                <TextView android:id="@+id/register"
-                    android:layout_gravity="center_horizontal|center"
-                    android:gravity="center"
-                    android:textSize="11sp"
-                    android:textColor="@color/_bg__register_page_color"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_width="51.1dp"
-                    android:layout_height="20.1dp"
-                    android:text="@string/register_string"
-                    />
-
-            </RelativeLayout>
-
-            <TextView android:id="@+id/registrasi"
+                android:text="Selamat Datang"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@color/_bg__nama_pengguna_atau_email_ek1_color"
-                android:layout_marginLeft="138dp"
-                android:layout_marginTop="261dp"
-                android:layout_width="122dp"
-                android:layout_height="27dp"
-                android:text="@string/registrasi_string"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <View   android:id="@+id/rectangle_12"
-                android:background="@drawable/rectangle_12_shape"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="384dp"
-                android:layout_width="21dp"
-                android:layout_height="3dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_email_in_register"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Email"
+                android:textColorHint="@color/gray"
+                app:boxStrokeColor="@color/orange"
+                app:boxStrokeErrorColor="@android:color/holo_red_light"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/gray"
+                app:errorIconTint="@android:color/holo_red_light"
+                app:errorTextColor="@android:color/holo_red_light"
+                app:hintTextColor="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_register_in_register"
+                app:startIconDrawable="@drawable/baseline_email_24"
+                app:startIconTint="?attr/startIconTint">
 
-            <View   android:id="@+id/rectangle_13"
-                android:background="@drawable/rectangle_13_shape"
-                android:layout_marginStart="89dp"
-                android:layout_marginTop="384dp"
-                android:layout_width="22dp"
-                android:layout_height="3dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_email_in_register"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="input email"
+                    android:inputType="textEmailAddress|text"
+                    android:textColor="@color/black"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <View   android:id="@+id/rectangle_14"
-                android:background="@drawable/rectangle_14_shape"
-                android:layout_marginStart="115dp"
-                android:layout_marginTop="384dp"
-                android:layout_width="21dp"
-                android:layout_height="3dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_password_in_register"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Password"
+                android:textColorHint="@color/gray"
+                app:boxStrokeColor="@color/orange"
+                app:boxStrokeErrorColor="@android:color/holo_red_light"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="?attr/endIconTint"
+                app:errorIconTint="@android:color/holo_red_light"
 
-        </RelativeLayout>
+                app:errorTextColor="@android:color/holo_red_light"
+                app:hintTextColor="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_email_in_register"
+                app:startIconDrawable="@drawable/ic_lock"
+                app:startIconTint="?attr/startIconTint">
 
-    </ScrollView>
-</HorizontalScrollView>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_password_in_register"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="edit password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    tools:ignore="TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_register_in_register"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/orange"
+
+                android:text="Register"
+                android:textColor="@color/black"
+                app:cornerRadius="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_password_in_register"
+                tools:ignore="DuplicateSpeakableTextCheck"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_or_in_register"
+                style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text=" or "
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/btn_register_in_register"
+                app:layout_constraintStart_toStartOf="@id/btn_register_in_register"
+                app:layout_constraintTop_toBottomOf="@id/btn_register_in_register"
+                tools:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login_in_register"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+
+                android:text="Login"
+                android:textColor="?android:attr/textColorSecondary"
+                app:cornerRadius="5dp"
+                app:layout_constraintEnd_toEndOf="@id/btn_register_in_register"
+                app:layout_constraintStart_toStartOf="@id/btn_register_in_register"
+                app:layout_constraintTop_toBottomOf="@id/tv_or_in_register"
+                app:strokeColor="@color/orange"
+                app:strokeWidth="1dp"
+                tools:visibility="visible" />
+
+            <ProgressBar
+                android:id="@+id/pb_loading_in_register"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="8dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/orange"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_login_in_register"
+                app:layout_constraintEnd_toEndOf="@+id/btn_register_in_register"
+                app:layout_constraintStart_toStartOf="@id/btn_register_in_register"
+                app:layout_constraintTop_toTopOf="@id/btn_register_in_register"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_loading_in_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
+                android:text="sign in"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/pb_loading_in_register"
+                app:layout_constraintStart_toStartOf="@id/pb_loading_in_register"
+                app:layout_constraintTop_toBottomOf="@id/pb_loading_in_register"
+                tools:visibility="gone" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
