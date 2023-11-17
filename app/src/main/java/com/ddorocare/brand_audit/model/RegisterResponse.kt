@@ -2,25 +2,35 @@ package com.ddorocare.brand_audit.model
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginRequest(
+
+data class RegisterRequest(
+	@SerializedName("full_name")
+	val fullName: String,
+
+	@SerializedName("username")
 	val username: String,
-	val password: String
+
+	@SerializedName("password")
+	val password: String,
+
+	@SerializedName("password_check")
+	val passwordCheck : String
 )
 
 
-data class LoginResponse(
+data class RegisterResponse(
 
 	@field:SerializedName("message")
 	val message: String? = null,
 
 	@field:SerializedName("user")
-	val userLogin: UserLogin? = null,
+	val userRegister: UserRegister? = null,
 
 	@field:SerializedName("status")
 	val status: String? = null
 )
 
-data class UserLogin(
+data class UserRegister(
 
 	@field:SerializedName("full_name")
 	val fullName: String? = null,
@@ -35,5 +45,5 @@ data class UserLogin(
 	val username: String? = null,
 
 	@field:SerializedName("token")
-	val token: String
+	val token: String? = null
 )

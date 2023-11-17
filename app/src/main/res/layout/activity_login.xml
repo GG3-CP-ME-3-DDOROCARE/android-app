@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
 
-                android:text="Selamat Datang"
+                android:text="@string/welcome"
                 android:textStyle="bold"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="24sp"
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Email"
+                android:hint="Username"
                 android:textColorHint="@color/gray"
                 app:boxStrokeColor="@color/orange"
                 app:boxStrokeErrorColor="@android:color/holo_red_light"
@@ -75,7 +75,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_email"
-                    android:contentDescription="input email"
+                    android:contentDescription="input username"
                     style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

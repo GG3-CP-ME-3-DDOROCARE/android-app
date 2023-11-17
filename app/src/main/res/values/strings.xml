@@ -52,5 +52,6 @@
     <string name="ddrocare_gmail_com_string">DDrocare@gmail.com</string>
     <string name="_________________________string">***********************</string>
     <string name="register_string">Register</string>
-    <string name="registrasi_string">Registrasi</string>
+    <string name="registrasi_string">Register</string>
+    <string name="welcome">Welcome</string>
 </resources>
