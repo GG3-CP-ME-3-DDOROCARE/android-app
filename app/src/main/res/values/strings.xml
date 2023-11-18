@@ -55,4 +55,7 @@
     <string name="registrasi_string">Register</string>
     <string name="welcome">Welcome</string>
     <string name="have_account">Already Have Account?</string>
+    <string name="product_name">Product Name</string>
+    <string name="our_activity">Our Activity</string>
+    <string name="desc_activity">Synergize with us to become local heroes for a more beautiful environment</string>
 </resources>

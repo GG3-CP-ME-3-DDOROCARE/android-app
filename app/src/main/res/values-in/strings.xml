@@ -37,5 +37,8 @@
     <string name="SecurityCodeBaru">Kode Keamanan Baru</string>
 
     <string name="have_account">Already Have Account?</string>
+    <string name="product_name">Nama Produk</string>
+    <string name="our_activity">Kegiatan Kami</string>
+    <string name="desc_activity">Bersinergi bersama kami menjadi lokal hero untuk lingkungan yang lebih asri</string>
 
 </resources>
