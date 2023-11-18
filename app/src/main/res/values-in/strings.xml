@@ -36,4 +36,6 @@
     <string name="SecurityCodeLama">Kode Keamanan Lama</string>
     <string name="SecurityCodeBaru">Kode Keamanan Baru</string>
 
+    <string name="have_account">Already Have Account?</string>
+
 </resources>

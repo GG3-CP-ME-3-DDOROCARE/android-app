@@ -54,4 +54,5 @@
     <string name="register_string">Register</string>
     <string name="registrasi_string">Register</string>
     <string name="welcome">Welcome</string>
+    <string name="have_account">Already Have Account?</string>
 </resources>
