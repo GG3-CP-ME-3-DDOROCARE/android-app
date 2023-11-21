@@ -25,6 +25,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.ddorocare.brand_audit.helper.PreferenceHelper;
 import com.ddorocare.brand_audit.model.GraphDetailResponse;
 import com.ddorocare.brand_audit.model.UserPreference;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
@@ -55,6 +62,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
     private AutoCompleteTextView Pencarian;
     private ArrayList arrayList = new ArrayList<String>();
     private GraphViewModel graphViewModel;
+    private BarChart chart;
 
     public HomeFragment() {
 
@@ -143,6 +151,8 @@ public class HomeFragment extends Fragment implements TextWatcher {
         ArrayAdapter arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_expandable_list_item_1, arrayList);
         Pencarian.setAdapter(arrayAdapter);
 
+        chart = v.findViewById(R.id.barChart);
+        configureChartAppearance();
         graphViewModel = new ViewModelProvider(this).get(GraphViewModel.class);
         testGraphApiCall();
 
@@ -158,6 +168,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
                     // Log success response
                     List<GraphDetailResponse> graphData = ((ResultCustom.Success<List<GraphDetailResponse>>) result).getData();
                     Log.d("GraphApiSuccess", "Graph data received: " + graphData.toString());
+                    updateChart(graphData);
                 } else if (result instanceof ResultCustom.Error) {
                     // Log error message
                     String errorMessage = ((ResultCustom.Error) result).getError();
@@ -165,6 +176,66 @@ public class HomeFragment extends Fragment implements TextWatcher {
                 }
             }
         });
+    }
+
+    private void updateChart(List<GraphDetailResponse> graphData) {
+        List<BarEntry> entries = new ArrayList<>();
+        final List<String> labels = new ArrayList<>();
+
+        for (int i = 0; i < graphData.size(); i++) {
+            GraphDetailResponse data = graphData.get(i);
+            entries.add(new BarEntry(i, data.getTotalSampah()));
+            labels.add(data.getLokasi()); // Assuming getLokasi() returns the location
+        }
+        BarDataSet dataSet = new BarDataSet(entries, "Pantai");
+
+        BarData barData = new BarData(dataSet);
+        chart.setData(barData);
+
+        // Set a custom ValueFormatter for the X-axis
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                int index = Math.round(value);
+                if (index >= 0 && index < labels.size()) {
+                    return labels.get(index);
+                } else {
+                    return "";
+                }
+            }
+        });
+
+        chart.invalidate(); // refresh the chart
+    }
+
+    private void configureChartAppearance() {
+        chart.getDescription().setEnabled(false); // Hide the description
+        chart.getLegend().setEnabled(false); // Hide the legend
+
+        // Simplify the X-axis
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(1f); // minimal interval set to 1
+        xAxis.setGranularityEnabled(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawLabels(true); // Memastikan label ditampilkan
+
+        // Simplify the Y-axis
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setAxisMinimum(0f); // Minimum value for Y-axis
+        leftAxis.setAxisMaximum(200f); // Maximum value for Y-axis
+        leftAxis.setGranularity(100f); // Interval between labels (0, 100, 200)
+        leftAxis.setDrawAxisLine(false);
+        leftAxis.setDrawGridLines(false);
+
+        chart.getAxisRight().setEnabled(false); // Disable right Y-axis
+
+        // Disable interactions
+        chart.setTouchEnabled(true);
+        chart.setDragEnabled(false);
+        chart.setScaleEnabled(false);
+        chart.setPinchZoom(false);
+
     }
 
 
