@@ -23,9 +23,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ddorocare.brand_audit.helper.PreferenceHelper;
+import com.ddorocare.brand_audit.model.UserPreference;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
@@ -40,12 +42,15 @@ import okhttp3.FormBody;
 
 public class HomeFragment extends Fragment implements TextWatcher {
     View v;
+
     private RecyclerView rProduk;
     private List<produk> ListProduk;
+    UserPreference pref;
     getData getPost;
     Session sess;
     JSONArray dataArray;
     private TextInputLayout Output;
+    TextView name ;
     private AutoCompleteTextView Pencarian;
     private ArrayList arrayList = new ArrayList<String>();
     //Daftar Item Menggunakan Array
@@ -83,6 +88,14 @@ public class HomeFragment extends Fragment implements TextWatcher {
         swipeRefreshLayout  =   (SwipeRefreshLayout)v.findViewById(R.id.refreshLayout);
         logout              =   v.findViewById(R.id.logout);
         sharedPref = new PreferenceHelper(getActivity());
+        name = v.findViewById(R.id.name);
+
+
+
+        Bundle bundle = getArguments();
+        String message = bundle.getString("mText");
+        name.setText(message);
+
 
         rProduk.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -111,6 +124,9 @@ public class HomeFragment extends Fragment implements TextWatcher {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 sharedPref.clear();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

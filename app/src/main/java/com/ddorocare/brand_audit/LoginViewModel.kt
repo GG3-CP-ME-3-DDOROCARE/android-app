@@ -12,13 +12,18 @@ import kotlinx.coroutines.launch
 class LoginViewModel (private val pref: UserPreference) : ViewModel(){
     private val repository : Repository = Repository()
     fun login(loginRequest: LoginRequest) : LiveData<ResultCustom<UserLogin>>{
-        Role.ADMIN.value
         return repository.login(loginRequest)
     }
 
     fun saveLogin(token : String){
         viewModelScope.launch {
             pref.login(token)
+        }
+    }
+
+    fun logout (){
+        viewModelScope.launch {
+            pref.logout()
         }
     }
 }

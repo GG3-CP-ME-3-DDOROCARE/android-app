@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FloatingActionButton fab;
     Intent intent;
+    String name;
     Bundle bundle;
     Session sess;
     @Override
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         intent = getIntent();
         bundle = new Bundle();
         sess = new Session(this);
+
+        name = getIntent().getStringExtra("name");
 
         if (intent.getStringExtra("toFragment") != null){
 //        Toast.makeText(this, intent.toString(), Toast.LENGTH_SHORT).show();
@@ -87,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
     //Menampilkan halaman Fragment
     private boolean getFragmentPage(Fragment fragment){
         if (fragment != null){
+            Bundle mBundle = new Bundle();
+            mBundle.putString(
+                    "mText",
+                    name);
+            fragment.setArguments(mBundle);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main_container, fragment)
