@@ -1,34 +1,29 @@
 package com.ddorocare.brand_audit;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.ddorocare.brand_audit.helper.PreferenceHelper;
+import com.ddorocare.brand_audit.model.GraphDetailResponse;
 import com.ddorocare.brand_audit.model.UserPreference;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -36,7 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,29 +38,25 @@ import okhttp3.FormBody;
 
 public class HomeFragment extends Fragment implements TextWatcher {
     View v;
-
-    private RecyclerView rProduk;
-    private List<produk> ListProduk;
     UserPreference pref;
     getData getPost;
     Session sess;
     JSONArray dataArray;
-    private TextInputLayout Output;
-    TextView name ;
-    TextView role ;
-    private AutoCompleteTextView Pencarian;
-    private ArrayList arrayList = new ArrayList<String>();
+    TextView name;
+    TextView role;
     //Daftar Item Menggunakan Array
     Adapterproduk adapterproduk;
     SwipeRefreshLayout swipeRefreshLayout;
-
     ImageButton logout;
     PreferenceHelper sharedPref;
+    private RecyclerView rProduk;
+    private List<produk> ListProduk;
+    private TextInputLayout Output;
+    private AutoCompleteTextView Pencarian;
+    private ArrayList arrayList = new ArrayList<String>();
+    private GraphViewModel graphViewModel;
 
-
-
-
-    public HomeFragment(){
+    public HomeFragment() {
 
 //        getDataAll();
     }
@@ -74,26 +64,26 @@ public class HomeFragment extends Fragment implements TextWatcher {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getPost     = new getData();
-        sess        = new Session(getContext());
-        ListProduk  = new ArrayList<>();
+        getPost = new getData();
+        sess = new Session(getContext());
+        ListProduk = new ArrayList<>();
 
         getDataAll();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v= inflater.inflate(R.layout.fragment_home, container, false);
+        v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        rProduk             =   (RecyclerView)  v.findViewById(R.id.rv_produk);
-        Output              =   v.findViewById(R.id.txtinputpantai);
-        Pencarian           =   v.findViewById(R.id.autoComplete_txt);
-        swipeRefreshLayout  =   (SwipeRefreshLayout)v.findViewById(R.id.refreshLayout);
-        logout              =   v.findViewById(R.id.logout);
+        rProduk = (RecyclerView) v.findViewById(R.id.rv_produk);
+        Output = v.findViewById(R.id.txtinputpantai);
+        Pencarian = v.findViewById(R.id.autoComplete_txt);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.refreshLayout);
+        logout = v.findViewById(R.id.logout);
         sharedPref = new PreferenceHelper(getActivity());
         name = v.findViewById(R.id.name);
         role = v.findViewById(R.id.role);
-
 
 
         Bundle bundle = getArguments();
@@ -106,7 +96,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
         rProduk.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-        adapterproduk   =   new Adapterproduk(getContext(),ListProduk);
+        adapterproduk = new Adapterproduk(getContext(), ListProduk);
 
         rProduk.setAdapter(adapterproduk);
 
@@ -127,10 +117,10 @@ public class HomeFragment extends Fragment implements TextWatcher {
                 }
         );
 
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
 
                 sharedPref.clear();
@@ -145,7 +135,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
 
 //        showToast(sess.getLokasi());
 
-        if (!sess.getLokasi().equals("")){
+        if (!sess.getLokasi().equals("")) {
             Pencarian.setText(sess.getLokasi());
         }
 
@@ -153,12 +143,32 @@ public class HomeFragment extends Fragment implements TextWatcher {
         ArrayAdapter arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_expandable_list_item_1, arrayList);
         Pencarian.setAdapter(arrayAdapter);
 
+        graphViewModel = new ViewModelProvider(this).get(GraphViewModel.class);
+        testGraphApiCall();
+
         return v;
 
-        }
+    }
+
+    private void testGraphApiCall() {
+        graphViewModel.getGraphData().observe(getViewLifecycleOwner(), new Observer<ResultCustom<List<GraphDetailResponse>>>() {
+            @Override
+            public void onChanged(ResultCustom<List<GraphDetailResponse>> result) {
+                if (result instanceof ResultCustom.Success) {
+                    // Log success response
+                    List<GraphDetailResponse> graphData = ((ResultCustom.Success<List<GraphDetailResponse>>) result).getData();
+                    Log.d("GraphApiSuccess", "Graph data received: " + graphData.toString());
+                } else if (result instanceof ResultCustom.Error) {
+                    // Log error message
+                    String errorMessage = ((ResultCustom.Error) result).getError();
+                    Log.e("GraphApiError", "Error occurred: " + errorMessage);
+                }
+            }
+        });
+    }
 
 
-    public void getLokasi(){
+    public void getLokasi() {
         arrayList.clear();
         new Thread(new Runnable() {
 
@@ -183,7 +193,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
             try {
                 JSONObject getDatas = new JSONObject(sess.getDataLokasi());
 
-                if(getDatas.getInt("foundBrandsCount") > 0) {
+                if (getDatas.getInt("foundBrandsCount") > 0) {
 //                        Log.e("e", "Testing 2 "+getDatas.getString("result"));
                     dataArray = getDatas.getJSONArray("result");
                     Log.e("e", "================[ S T A R T ]=================");
@@ -229,7 +239,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
             try {
                 JSONObject getDatas = new JSONObject(sess.getDataSampah());
 
-                if(getDatas.getInt("foundBrandsCount") > 0) {
+                if (getDatas.getInt("foundBrandsCount") > 0) {
 //                        Log.e("e", "Testing 2 "+getDatas.getString("result"));
                     dataArray = getDatas.getJSONArray("result");
                     Log.e("e", "================[ S T A R T ]=================");
@@ -242,7 +252,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
                                 R.drawable.list));
 
                         Log.e("e", "Data Merk " + dataobj.getString("merk_brand") + "; Perusahaan " +
-                                dataobj.getString("perusahaan") + "; Jumlah "+dataobj.getString("jumlah"));
+                                dataobj.getString("perusahaan") + "; Jumlah " + dataobj.getString("jumlah"));
 
                     }
 
@@ -273,12 +283,11 @@ public class HomeFragment extends Fragment implements TextWatcher {
 //        showToast(Pencarian.getText().toString());
     }
 
-    public void showToast(final String toast)
-    {
+    public void showToast(final String toast) {
         Toast.makeText(getActivity(), toast, Toast.LENGTH_SHORT).show();
     }
 
-    public void getLocationByName(String lokasi){
+    public void getLocationByName(String lokasi) {
         new Thread(new Runnable() {
 
             @Override
@@ -291,7 +300,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
 
                     JSONObject getDatas = new JSONObject(result.getString("data"));
 
-                    if(getDatas.getInt("foundBrandsCount") > 0) {
+                    if (getDatas.getInt("foundBrandsCount") > 0) {
                         JSONObject dataLocation = new JSONObject(getDatas.getString("result"));
 
                         sess.setLokasi(dataLocation.getString("lokasi_nama"));
