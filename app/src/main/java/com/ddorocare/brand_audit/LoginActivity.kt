@@ -39,6 +39,9 @@ class LoginActivity : AppCompatActivity() {
         setupViewModel()
         setupAction()
 
+
+
+
         registerButton.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
@@ -51,6 +54,8 @@ class LoginActivity : AppCompatActivity() {
             this,
             ViewModelFactory(UserPreference.getInstance(dataStore))
         )[LoginViewModel::class.java]
+
+        loginViewModel.logout()
     }
 
     private fun setupAction() {
@@ -69,12 +74,18 @@ class LoginActivity : AppCompatActivity() {
                             loginViewModel.saveLogin(user.token)
                             AlertDialog.Builder(this).apply {
                                     val intent = Intent(context, MainActivity::class.java)
-//                                    intent.putExtra(MainActivity.ID_USER, result.data.token)
+                                    intent.putExtra("name", result.data.fullName)
+//                                val mFragment = HomeFragment()
+//
+//                                val mBundle = Bundle()
+//                                mBundle.putString("mText", result.data.fullName)
+//                                mFragment.arguments = mBundle
                                     intent.flags =
                                         Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                     startActivity(intent)
                                     finish()
                             }
+
                         }
                         is ResultCustom.Error -> {
                             findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE

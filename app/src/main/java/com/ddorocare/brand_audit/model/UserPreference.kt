@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
@@ -17,7 +18,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
                 preferences[NAME_KEY] ?:"",
                 preferences[EMAIL_KEY] ?:"",
                 preferences[PASSWORD_KEY] ?:"",
-                preferences[STATE_KEY] ?: false
+                preferences[STATE_KEY] ?: false,
+                preferences[ROLE] ?:"",
             )
         }
     }
@@ -29,6 +31,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
             preferences[EMAIL_KEY] = user.username
             preferences[PASSWORD_KEY] = user.password
             preferences[STATE_KEY] = user.isLogin
+            preferences[ROLE] = user.role
 
         }
     }
@@ -49,6 +52,17 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    fun setState() {
+        runBlocking {
+            dataStore.edit { preferences ->
+                preferences[STATE_KEY] = false
+            }
+        }
+    }
+
+
+
+
     companion object {
         @Volatile
         private var INSTANCE: UserPreference? = null
@@ -58,6 +72,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private val PASSWORD_KEY = stringPreferencesKey("password")
         private val STATE_KEY = booleanPreferencesKey("state")
         private val TOKEN = stringPreferencesKey("token")
+        private val ROLE = stringPreferencesKey("role")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {
@@ -65,6 +80,11 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
                 INSTANCE = instance
                 instance
             }
+        }
+
+        @JvmStatic
+        fun create(dataStore: DataStore<Preferences>): UserPreference {
+            return UserPreference(dataStore)
         }
     }
 }

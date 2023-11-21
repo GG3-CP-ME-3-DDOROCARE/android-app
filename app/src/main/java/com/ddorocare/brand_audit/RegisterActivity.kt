@@ -57,15 +57,8 @@ class RegisterActivity : AppCompatActivity() {
                         is ResultCustom.Success -> {
                             val user = result.data
                             findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
-                            AlertDialog.Builder(this).apply {
-                                setTitle("Yeah!")
-                                setMessage("Akunnya sudah jadi nih. Yuk, langsung login")
-                                setPositiveButton("Lanjut") { _, _ ->
-                                    finish()
-                                }
-                                create()
-                                show()
-                            }
+                            finish()
+
                         }
                         is ResultCustom.Error -> {
                             findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
