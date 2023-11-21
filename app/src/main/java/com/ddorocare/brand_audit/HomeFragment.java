@@ -1,5 +1,8 @@
 package com.ddorocare.brand_audit;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,8 +22,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.ddorocare.brand_audit.helper.PreferenceHelper;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
@@ -47,6 +52,10 @@ public class HomeFragment extends Fragment implements TextWatcher {
     Adapterproduk adapterproduk;
     SwipeRefreshLayout swipeRefreshLayout;
 
+    ImageButton logout;
+    PreferenceHelper sharedPref;
+
+
 
 
     public HomeFragment(){
@@ -72,6 +81,8 @@ public class HomeFragment extends Fragment implements TextWatcher {
         Output              =   v.findViewById(R.id.txtinputpantai);
         Pencarian           =   v.findViewById(R.id.autoComplete_txt);
         swipeRefreshLayout  =   (SwipeRefreshLayout)v.findViewById(R.id.refreshLayout);
+        logout              =   v.findViewById(R.id.logout);
+        sharedPref = new PreferenceHelper(getActivity());
 
         rProduk.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -96,6 +107,16 @@ public class HomeFragment extends Fragment implements TextWatcher {
                     }
                 }
         );
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sharedPref.clear();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
 //        showToast(sess.getLokasi());
 
