@@ -37,6 +37,8 @@ class SplashActivity : AppCompatActivity() {
         viewModel.getUser().observe(this) { user ->
             if (user.isLogin) {
                 val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("name", user.name)
+                intent.putExtra("role", user.role)
                 startActivity(intent)
             } else {
                 val intent = Intent(this, LoginActivity::class.java)

@@ -15,6 +15,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.ddorocare.brand_audit.model.LoginRequest
+import com.ddorocare.brand_audit.model.UserModel
 import com.ddorocare.brand_audit.model.UserPreference
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -72,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
                             val user = result.data
                             findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
                             loginViewModel.saveLogin(user.token)
+                            loginViewModel.saveUser(UserModel(result.data.token,result.data.fullName!!, result.data.username!!, true , role = result.data.role!! ))
                             AlertDialog.Builder(this).apply {
                                     val intent = Intent(context, MainActivity::class.java)
                                     intent.putExtra("name", result.data.fullName)
