@@ -14,16 +14,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_person_24"/>
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_person_24"/>
+            <TextView
+                android:id="@+id/role"
+                android:text="admin"
+                android:textStyle="bold"
+                android:textSize="8sp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Hello, Yauw James Fang Dwiputra"
+            android:text="Yauw James Fang Dwiputra"
             android:textColor="@color/black"
             android:gravity="center_vertical"
             android:layout_marginStart="2dp"

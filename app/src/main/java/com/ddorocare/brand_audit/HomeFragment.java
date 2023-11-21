@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
     JSONArray dataArray;
     private TextInputLayout Output;
     TextView name ;
+    TextView role ;
     private AutoCompleteTextView Pencarian;
     private ArrayList arrayList = new ArrayList<String>();
     //Daftar Item Menggunakan Array
@@ -89,12 +90,15 @@ public class HomeFragment extends Fragment implements TextWatcher {
         logout              =   v.findViewById(R.id.logout);
         sharedPref = new PreferenceHelper(getActivity());
         name = v.findViewById(R.id.name);
+        role = v.findViewById(R.id.role);
 
 
 
         Bundle bundle = getArguments();
-        String message = bundle.getString("mText");
-        name.setText(message);
+        String username = bundle.getString("mName");
+        String userrole = bundle.getString("mRole");
+        name.setText(username);
+        role.setText(userrole);
 
 
         rProduk.setLayoutManager(new LinearLayoutManager(getActivity()));

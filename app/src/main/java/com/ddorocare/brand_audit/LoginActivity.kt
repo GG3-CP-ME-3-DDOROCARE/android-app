@@ -75,12 +75,7 @@ class LoginActivity : AppCompatActivity() {
                             AlertDialog.Builder(this).apply {
                                     val intent = Intent(context, MainActivity::class.java)
                                     intent.putExtra("name", result.data.fullName)
-//                                val mFragment = HomeFragment()
-//
-//                                val mBundle = Bundle()
-//                                mBundle.putString("mText", result.data.fullName)
-//                                mFragment.arguments = mBundle
-                                    intent.flags =
+                                    intent.putExtra("role", result.data.role)
                                         Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                     startActivity(intent)
                                     finish()
