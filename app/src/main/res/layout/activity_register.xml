@@ -42,7 +42,7 @@
                 android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Selamat Datang"
+                android:text="@string/welcome"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/dark_blue"
-                android:text="Register"
+                android:text="@string/registrasi_string"
                 android:textColor="@color/white"
                 app:cornerRadius="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -188,7 +188,7 @@
                     android:id="@+id/tv_have_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sudah memiliki akun?"
+                    android:text="@string/have_account"
                     android:textColor="@color/dark_blue" />
 
                 <TextView
@@ -196,7 +196,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Login"
+                    android:text="@string/login"
                     android:textColor="@color/dark_blue" />
             </LinearLayout>
 

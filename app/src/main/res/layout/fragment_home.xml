@@ -48,6 +48,8 @@
             android:textSize="17sp"
             android:textStyle="bold" />
 
+
+
         <ImageButton
             android:id="@+id/logout"
             android:layout_width="wrap_content"
@@ -55,7 +57,7 @@
             android:layout_gravity="end"
             android:layout_marginStart="2dp"
             android:background="@color/white"
-            android:contentDescription="logout"
+            android:contentDescription="@string/logout"
             android:foregroundGravity="right"
             android:src="@drawable/baseline_exit_to_app_24" />
 
@@ -182,7 +184,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="10dp"
-        android:text="Nama Produk"
+        android:text="@string/product_name"
         android:textColor="#002B77"
         android:textSize="17sp"
         android:textStyle="bold" />
@@ -205,7 +207,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="10dp"
-        android:text="Kegiatan Kami"
+        android:text="@string/our_activity"
         android:textColor="#002B77"
         android:textSize="17sp"
         android:textStyle="bold" />
@@ -214,7 +216,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
-        android:text="Bersinergi bersama kami menjadi lokal hero untuk lingkungan yang lebih asri"
+        android:text="@string/desc_activity"
         android:textColor="#002B77"
         android:textSize="10sp" />
 
