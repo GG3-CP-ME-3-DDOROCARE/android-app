@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     String name;
     Bundle bundle;
     Session sess;
+    String role;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         sess = new Session(this);
 
         name = getIntent().getStringExtra("name");
+        role = getIntent().getStringExtra("role");
 
         if (intent.getStringExtra("toFragment") != null){
 //        Toast.makeText(this, intent.toString(), Toast.LENGTH_SHORT).show();
@@ -92,8 +95,11 @@ public class MainActivity extends AppCompatActivity {
         if (fragment != null){
             Bundle mBundle = new Bundle();
             mBundle.putString(
-                    "mText",
+                    "mName",
                     name);
+            mBundle.putString(
+                    "mRole",
+                    role);
             fragment.setArguments(mBundle);
             getSupportFragmentManager()
                     .beginTransaction()

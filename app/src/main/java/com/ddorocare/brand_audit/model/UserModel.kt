@@ -4,7 +4,6 @@ data class UserModel(
     val token : String,
     val name: String,
     val username: String,
-    val password: String,
     val isLogin: Boolean,
     val role : String = "",
 )

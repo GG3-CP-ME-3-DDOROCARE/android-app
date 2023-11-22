@@ -1,40 +1,43 @@
 package com.ddorocare.brand_audit;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.ddorocare.brand_audit.helper.PreferenceHelper;
+import com.ddorocare.brand_audit.model.GraphDetailResponse;
 import com.ddorocare.brand_audit.model.UserPreference;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,28 +45,26 @@ import okhttp3.FormBody;
 
 public class HomeFragment extends Fragment implements TextWatcher {
     View v;
-
-    private RecyclerView rProduk;
-    private List<produk> ListProduk;
     UserPreference pref;
     getData getPost;
     Session sess;
     JSONArray dataArray;
-    private TextInputLayout Output;
-    TextView name ;
-    private AutoCompleteTextView Pencarian;
-    private ArrayList arrayList = new ArrayList<String>();
+    TextView name;
+    TextView role;
     //Daftar Item Menggunakan Array
     Adapterproduk adapterproduk;
     SwipeRefreshLayout swipeRefreshLayout;
-
     ImageButton logout;
     PreferenceHelper sharedPref;
+    private RecyclerView rProduk;
+    private List<produk> ListProduk;
+    private TextInputLayout Output;
+    private AutoCompleteTextView Pencarian;
+    private ArrayList arrayList = new ArrayList<String>();
+    private GraphViewModel graphViewModel;
+    private BarChart chart;
 
-
-
-
-    public HomeFragment(){
+    public HomeFragment() {
 
 //        getDataAll();
     }
@@ -71,36 +72,39 @@ public class HomeFragment extends Fragment implements TextWatcher {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getPost     = new getData();
-        sess        = new Session(getContext());
-        ListProduk  = new ArrayList<>();
+        getPost = new getData();
+        sess = new Session(getContext());
+        ListProduk = new ArrayList<>();
 
         getDataAll();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v= inflater.inflate(R.layout.fragment_home, container, false);
+        v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        rProduk             =   (RecyclerView)  v.findViewById(R.id.rv_produk);
-        Output              =   v.findViewById(R.id.txtinputpantai);
-        Pencarian           =   v.findViewById(R.id.autoComplete_txt);
-        swipeRefreshLayout  =   (SwipeRefreshLayout)v.findViewById(R.id.refreshLayout);
-        logout              =   v.findViewById(R.id.logout);
+        rProduk = (RecyclerView) v.findViewById(R.id.rv_produk);
+        Output = v.findViewById(R.id.txtinputpantai);
+        Pencarian = v.findViewById(R.id.autoComplete_txt);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.refreshLayout);
+        logout = v.findViewById(R.id.logout);
         sharedPref = new PreferenceHelper(getActivity());
         name = v.findViewById(R.id.name);
-
+        role = v.findViewById(R.id.role);
 
 
         Bundle bundle = getArguments();
-        String message = bundle.getString("mText");
-        name.setText(message);
+        String username = bundle.getString("mName");
+        String userrole = bundle.getString("mRole");
+        name.setText(username);
+        role.setText(userrole);
 
 
         rProduk.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-        adapterproduk   =   new Adapterproduk(getContext(),ListProduk);
+        adapterproduk = new Adapterproduk(getContext(), ListProduk);
 
         rProduk.setAdapter(adapterproduk);
 
@@ -121,22 +125,25 @@ public class HomeFragment extends Fragment implements TextWatcher {
                 }
         );
 
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-
                 sharedPref.clear();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
             }
         });
 
 //        showToast(sess.getLokasi());
 
-        if (!sess.getLokasi().equals("")){
+        if (!sess.getLokasi().equals("")) {
             Pencarian.setText(sess.getLokasi());
         }
 
@@ -144,11 +151,95 @@ public class HomeFragment extends Fragment implements TextWatcher {
         ArrayAdapter arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_expandable_list_item_1, arrayList);
         Pencarian.setAdapter(arrayAdapter);
 
+        chart = v.findViewById(R.id.barChart);
+        configureChartAppearance();
+        graphViewModel = new ViewModelProvider(this).get(GraphViewModel.class);
+        testGraphApiCall();
+
         return v;
 
-        }
+    }
 
-    public void getLokasi(){
+    private void testGraphApiCall() {
+        graphViewModel.getGraphData().observe(getViewLifecycleOwner(), new Observer<ResultCustom<List<GraphDetailResponse>>>() {
+            @Override
+            public void onChanged(ResultCustom<List<GraphDetailResponse>> result) {
+                if (result instanceof ResultCustom.Success) {
+                    // Log success response
+                    List<GraphDetailResponse> graphData = ((ResultCustom.Success<List<GraphDetailResponse>>) result).getData();
+                    Log.d("GraphApiSuccess", "Graph data received: " + graphData.toString());
+                    updateChart(graphData);
+                } else if (result instanceof ResultCustom.Error) {
+                    // Log error message
+                    String errorMessage = ((ResultCustom.Error) result).getError();
+                    Log.e("GraphApiError", "Error occurred: " + errorMessage);
+                }
+            }
+        });
+    }
+
+    private void updateChart(List<GraphDetailResponse> graphData) {
+        List<BarEntry> entries = new ArrayList<>();
+        final List<String> labels = new ArrayList<>();
+
+        for (int i = 0; i < graphData.size(); i++) {
+            GraphDetailResponse data = graphData.get(i);
+            entries.add(new BarEntry(i, data.getTotalSampah()));
+            labels.add(data.getLokasi()); // Assuming getLokasi() returns the location
+        }
+        BarDataSet dataSet = new BarDataSet(entries, "Pantai");
+
+        BarData barData = new BarData(dataSet);
+        chart.setData(barData);
+
+        // Set a custom ValueFormatter for the X-axis
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                int index = Math.round(value);
+                if (index >= 0 && index < labels.size()) {
+                    return labels.get(index);
+                } else {
+                    return "";
+                }
+            }
+        });
+
+        chart.invalidate(); // refresh the chart
+    }
+
+    private void configureChartAppearance() {
+        chart.getDescription().setEnabled(false); // Hide the description
+        chart.getLegend().setEnabled(false); // Hide the legend
+
+        // Simplify the X-axis
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(1f); // minimal interval set to 1
+        xAxis.setGranularityEnabled(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawLabels(true); // Memastikan label ditampilkan
+
+        // Simplify the Y-axis
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setAxisMinimum(0f); // Minimum value for Y-axis
+        leftAxis.setAxisMaximum(200f); // Maximum value for Y-axis
+        leftAxis.setGranularity(100f); // Interval between labels (0, 100, 200)
+        leftAxis.setDrawAxisLine(false);
+        leftAxis.setDrawGridLines(false);
+
+        chart.getAxisRight().setEnabled(false); // Disable right Y-axis
+
+        // Disable interactions
+        chart.setTouchEnabled(true);
+        chart.setDragEnabled(false);
+        chart.setScaleEnabled(false);
+        chart.setPinchZoom(false);
+
+    }
+
+
+    public void getLokasi() {
         arrayList.clear();
         new Thread(new Runnable() {
 
@@ -173,7 +264,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
             try {
                 JSONObject getDatas = new JSONObject(sess.getDataLokasi());
 
-                if(getDatas.getInt("foundBrandsCount") > 0) {
+                if (getDatas.getInt("foundBrandsCount") > 0) {
 //                        Log.e("e", "Testing 2 "+getDatas.getString("result"));
                     dataArray = getDatas.getJSONArray("result");
                     Log.e("e", "================[ S T A R T ]=================");
@@ -219,7 +310,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
             try {
                 JSONObject getDatas = new JSONObject(sess.getDataSampah());
 
-                if(getDatas.getInt("foundBrandsCount") > 0) {
+                if (getDatas.getInt("foundBrandsCount") > 0) {
 //                        Log.e("e", "Testing 2 "+getDatas.getString("result"));
                     dataArray = getDatas.getJSONArray("result");
                     Log.e("e", "================[ S T A R T ]=================");
@@ -232,7 +323,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
                                 R.drawable.list));
 
                         Log.e("e", "Data Merk " + dataobj.getString("merk_brand") + "; Perusahaan " +
-                                dataobj.getString("perusahaan") + "; Jumlah "+dataobj.getString("jumlah"));
+                                dataobj.getString("perusahaan") + "; Jumlah " + dataobj.getString("jumlah"));
 
                     }
 
@@ -263,12 +354,11 @@ public class HomeFragment extends Fragment implements TextWatcher {
 //        showToast(Pencarian.getText().toString());
     }
 
-    public void showToast(final String toast)
-    {
+    public void showToast(final String toast) {
         Toast.makeText(getActivity(), toast, Toast.LENGTH_SHORT).show();
     }
 
-    public void getLocationByName(String lokasi){
+    public void getLocationByName(String lokasi) {
         new Thread(new Runnable() {
 
             @Override
@@ -281,7 +371,7 @@ public class HomeFragment extends Fragment implements TextWatcher {
 
                     JSONObject getDatas = new JSONObject(result.getString("data"));
 
-                    if(getDatas.getInt("foundBrandsCount") > 0) {
+                    if (getDatas.getInt("foundBrandsCount") > 0) {
                         JSONObject dataLocation = new JSONObject(getDatas.getString("result"));
 
                         sess.setLokasi(dataLocation.getString("lokasi_nama"));

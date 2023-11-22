@@ -3,8 +3,6 @@ package com.ddorocare.brand_audit
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -15,18 +13,21 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.ddorocare.brand_audit.model.LoginRequest
+import com.ddorocare.brand_audit.model.UserModel
 import com.ddorocare.brand_audit.model.UserPreference
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 
+
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 class LoginActivity : AppCompatActivity() {
     //    private lateinit var binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var email: TextInputEditText
     private lateinit var password: TextInputEditText
     private lateinit var loginButton: MaterialButton
-    private lateinit var registerButton : MaterialButton
+    private lateinit var registerButton: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,25 +69,31 @@ class LoginActivity : AppCompatActivity() {
                     when (result) {
                         is ResultCustom.Loading -> findViewById<ProgressBar>(R.id.pb_loading).visibility =
                             View.VISIBLE
+
                         is ResultCustom.Success -> {
                             val user = result.data
                             findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
                             loginViewModel.saveLogin(user.token)
+                            loginViewModel.saveUser(
+                                UserModel(
+                                    result.data.token,
+                                    result.data.fullName!!,
+                                    result.data.username!!,
+                                    true,
+                                    role = result.data.role!!
+                                )
+                            )
                             AlertDialog.Builder(this).apply {
-                                    val intent = Intent(context, MainActivity::class.java)
-                                    intent.putExtra("name", result.data.fullName)
-//                                val mFragment = HomeFragment()
-//
-//                                val mBundle = Bundle()
-//                                mBundle.putString("mText", result.data.fullName)
-//                                mFragment.arguments = mBundle
-                                    intent.flags =
-                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                    startActivity(intent)
-                                    finish()
+                                val intent = Intent(context, MainActivity::class.java)
+                                intent.putExtra("name", result.data.fullName)
+                                intent.putExtra("role", result.data.role)
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                startActivity(intent)
+                                finish()
                             }
 
                         }
+
                         is ResultCustom.Error -> {
                             findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
                             Toast.makeText(

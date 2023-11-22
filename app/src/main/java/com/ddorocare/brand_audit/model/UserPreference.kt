@@ -9,17 +9,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 
+
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
     fun getUser(): Flow<UserModel> {
         return dataStore.data.map { preferences ->
             UserModel(
-                preferences[TOKEN] ?:"",
-                preferences[NAME_KEY] ?:"",
-                preferences[EMAIL_KEY] ?:"",
-                preferences[PASSWORD_KEY] ?:"",
+                preferences[TOKEN] ?: "",
+                preferences[NAME_KEY] ?: "",
+                preferences[EMAIL_KEY] ?: "",
                 preferences[STATE_KEY] ?: false,
-                preferences[ROLE] ?:"",
+                preferences[ROLE] ?: "",
             )
         }
     }
@@ -29,14 +29,12 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
             preferences[TOKEN] = user.token
             preferences[NAME_KEY] = user.name
             preferences[EMAIL_KEY] = user.username
-            preferences[PASSWORD_KEY] = user.password
-            preferences[STATE_KEY] = user.isLogin
             preferences[ROLE] = user.role
 
         }
     }
 
-    suspend fun login(token : String) {
+    suspend fun login(token: String) {
         dataStore.edit { preferences ->
             preferences[STATE_KEY] = true
         }
@@ -61,8 +59,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     }
 
 
-
-
     companion object {
         @Volatile
         private var INSTANCE: UserPreference? = null
@@ -74,7 +70,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private val TOKEN = stringPreferencesKey("token")
         private val ROLE = stringPreferencesKey("role")
 
-        fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
+        fun getInstance(dataStore: DataStore<androidx.datastore.preferences.core.Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {
                 val instance = UserPreference(dataStore)
                 INSTANCE = instance
