@@ -30,16 +30,17 @@
             android:layout_weight="1"
             android:textSize="17sp"
             android:textStyle="bold"/>
+
         <ImageButton
             android:id="@+id/logout"
-            android:contentDescription="logout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:layout_gravity="end"
             android:layout_marginStart="2dp"
+            android:background="@color/white"
+            android:contentDescription="@string/logout"
             android:foregroundGravity="right"
-            android:src="@drawable/baseline_exit_to_app_24"/>
+            android:src="@drawable/baseline_exit_to_app_24" />
 
     </LinearLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -143,14 +144,14 @@
     </HorizontalScrollView>
 
     <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Nama Produk"
-    android:layout_marginLeft="7dp"
-    android:textColor="#002B77"
-    android:textStyle="bold"
-    android:layout_marginTop="10dp"
-    android:textSize="17sp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/product_name"
+        android:textColor="#002B77"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
@@ -168,19 +169,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kegiatan Kami"
         android:layout_marginLeft="7dp"
-        android:textColor="#002B77"
-        android:textStyle="bold"
         android:layout_marginTop="10dp"
-        android:textSize="17sp"/>
+        android:text="@string/our_activity"
+        android:textColor="#002B77"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bersinergi bersama kami menjadi lokal hero untuk lingkungan yang lebih asri"
         android:layout_marginLeft="7dp"
+        android:text="@string/desc_activity"
         android:textColor="#002B77"
-        android:textSize="10sp"/>
+        android:textSize="10sp" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
